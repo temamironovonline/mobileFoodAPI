@@ -15,7 +15,7 @@ namespace mobileFoodAPI
     public partial class Users
     {
         public int Code_User { get; set; }
-        public string Telehone_User { get; set; }
+        public string Telephone_User { get; set; }
         public int Password_User { get; set; }
     }
 }

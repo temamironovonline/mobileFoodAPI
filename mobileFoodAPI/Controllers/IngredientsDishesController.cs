@@ -1,14 +1,11 @@
-﻿using System;
+﻿using mobileFoodAPI.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using mobileFoodAPI;
 
 namespace mobileFoodAPI.Controllers
 {
@@ -17,9 +14,10 @@ namespace mobileFoodAPI.Controllers
         private FoodEntities db = new FoodEntities();
 
         // GET: api/IngredientsDishes
-        public IQueryable<IngredientsDishes> GetIngredientsDishes()
+        [ResponseType(typeof(List<IngredientsDishesModel>))]
+        public IHttpActionResult GetIngredientsDishes()
         {
-            return db.IngredientsDishes;
+            return Ok(db.IngredientsDishes.ToList().ConvertAll(x => new IngredientsDishesModel(x)));
         }
 
         // GET: api/IngredientsDishes/5

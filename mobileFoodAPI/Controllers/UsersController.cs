@@ -1,55 +1,55 @@
-﻿
-using mobileFoodAPI.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-
+using mobileFoodAPI;
 
 namespace mobileFoodAPI.Controllers
 {
-    public class DishesController : ApiController
+    public class UsersController : ApiController
     {
         private FoodEntities db = new FoodEntities();
 
-        // GET: api/Dishes
-        [ResponseType(typeof(List<DishesModel>))]
-        public IHttpActionResult GetDishes()
+        // GET: api/Users
+        public IQueryable<Users> GetUsers()
         {
-            return Ok(db.Dishes.ToList().ConvertAll(x => new DishesModel(x)));
+            return db.Users;
         }
 
-        // GET: api/Dishes/5
-        [ResponseType(typeof(Dishes))]
-        public IHttpActionResult GetDishes(int id)
+        // GET: api/Users/5
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult GetUsers(int id)
         {
-            Dishes dishes = db.Dishes.Find(id);
-            if (dishes == null)
+            Users users = db.Users.Find(id);
+            if (users == null)
             {
                 return NotFound();
             }
 
-            return Ok(dishes);
+            return Ok(users);
         }
 
-        // PUT: api/Dishes/5
+        // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutDishes(int id, Dishes dishes)
+        public IHttpActionResult PutUsers(int id, Users users)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != dishes.Code_Dish)
+            if (id != users.Code_User)
             {
                 return BadRequest();
             }
 
-            db.Entry(dishes).State = EntityState.Modified;
+            db.Entry(users).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace mobileFoodAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DishesExists(id))
+                if (!UsersExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace mobileFoodAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Dishes
-        [ResponseType(typeof(Dishes))]
-        public IHttpActionResult PostDishes(Dishes dishes)
+        // POST: api/Users
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult PostUsers(Users users)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Dishes.Add(dishes);
+            db.Users.Add(users);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = dishes.Code_Dish }, dishes);
+            return CreatedAtRoute("DefaultApi", new { id = users.Code_User }, users);
         }
 
-        // DELETE: api/Dishes/5
-        [ResponseType(typeof(Dishes))]
-        public IHttpActionResult DeleteDishes(int id)
+        // DELETE: api/Users/5
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult DeleteUsers(int id)
         {
-            Dishes dishes = db.Dishes.Find(id);
-            if (dishes == null)
+            Users users = db.Users.Find(id);
+            if (users == null)
             {
                 return NotFound();
             }
 
-            db.Dishes.Remove(dishes);
+            db.Users.Remove(users);
             db.SaveChanges();
 
-            return Ok(dishes);
+            return Ok(users);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace mobileFoodAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool DishesExists(int id)
+        private bool UsersExists(int id)
         {
-            return db.Dishes.Count(e => e.Code_Dish == id) > 0;
+            return db.Users.Count(e => e.Code_User == id) > 0;
         }
     }
 }

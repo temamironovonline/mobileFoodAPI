@@ -38,14 +38,18 @@ namespace mobileFoodAPI.Controllers
         }
 
         [ResponseType(typeof(Users))]
-        public IHttpActionResult GetUsers(string telephoneUser)
+        public IHttpActionResult GetUsers(string telephoneUser, int passwordUser)
         {
             Users users = db.Users.FirstOrDefault(x => x.Telephone_User == telephoneUser);
             if (users == null)
             {
                 return NotFound();
             }
-            return Ok(users);
+            else if (users.Password_User != passwordUser)
+            {
+                return BadRequest();
+            }
+            else return Ok(users);
         }
 
         //[Route("https://ngknn.ru:5001/NGKNN/СергеичевАД/users")]

@@ -6,6 +6,8 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using mobileFoodAPI;
@@ -34,6 +36,28 @@ namespace mobileFoodAPI.Controllers
 
             return Ok(users);
         }
+
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult GetUsers(string telephoneUser)
+        {
+            Users users = db.Users.FirstOrDefault(x => x.Telephone_User == telephoneUser);
+            if (users == null)
+            {
+                return NotFound();
+            }
+            return Ok(users);
+        }
+
+        //[Route("https://ngknn.ru:5001/NGKNN/СергеичевАД/users")]
+        //[HttpGet]
+        //public async Task<IHttpActionResult> GetUsers(string loginUser)
+        //{
+        //    Users users = db.Users.Find(loginUser);
+        //    if (users == null) return NotFound();
+        //    else return Ok(users);
+        //}
+
+
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]

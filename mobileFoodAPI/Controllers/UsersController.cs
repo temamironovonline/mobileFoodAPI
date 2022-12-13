@@ -37,20 +37,32 @@ namespace mobileFoodAPI.Controllers
             return Ok(users);
         }
 
+
         [ResponseType(typeof(Users))]
-        public IHttpActionResult GetUsers(string telephoneUser, int passwordUser)
+        public IHttpActionResult GetUsers(string telephoneUser) // Поиск существования пользователя
         {
             Users users = db.Users.FirstOrDefault(x => x.Telephone_User == telephoneUser);
+
             if (users == null)
             {
                 return NotFound();
             }
-            else if (users.Password_User != passwordUser)
+            else return Ok(users);
+        }
+
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult GetUsers(string telephoneUser, int passwordUser) // Проверка правильности введенных данных для существующего пользователя
+        {
+            Users users = db.Users.FirstOrDefault(x => x.Telephone_User == telephoneUser);
+            
+            if (users.Password_User != passwordUser)
             {
                 return BadRequest();
             }
             else return Ok(users);
         }
+
+        
 
         //[Route("https://ngknn.ru:5001/NGKNN/СергеичевАД/users")]
         //[HttpGet]

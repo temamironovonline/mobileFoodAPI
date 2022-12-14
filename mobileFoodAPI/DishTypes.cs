@@ -12,10 +12,9 @@ namespace mobileFoodAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class DishTypes
     {
-        public int Code_User { get; set; }
-        public string Telephone_User { get; set; }
-        public string Password_User { get; set; }
+        public int Code_DishType { get; set; }
+        public string Name_DishType { get; set; }
     }
 }

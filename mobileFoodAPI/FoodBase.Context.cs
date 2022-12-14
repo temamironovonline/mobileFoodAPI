@@ -26,8 +26,10 @@ namespace mobileFoodAPI
         }
     
         public virtual DbSet<Dishes> Dishes { get; set; }
+        public virtual DbSet<DishTypes> DishTypes { get; set; }
         public virtual DbSet<Ingredients> Ingredients { get; set; }
         public virtual DbSet<IngredientsDishes> IngredientsDishes { get; set; }
+        public virtual DbSet<NationalCuisine> NationalCuisine { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

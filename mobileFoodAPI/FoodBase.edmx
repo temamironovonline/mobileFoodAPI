@@ -16,6 +16,15 @@
           <Property Name="Recipe_Dish" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Portion_Dish" Type="int" Nullable="false" />
           <Property Name="Image_Dish" Type="varbinary(max)" />
+          <Property Name="Code_NationalCuisine" Type="int" />
+          <Property Name="Code_DishType" Type="int" />
+        </EntityType>
+        <EntityType Name="DishTypes">
+          <Key>
+            <PropertyRef Name="Code_DishType" />
+          </Key>
+          <Property Name="Code_DishType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_DishType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -33,13 +42,20 @@
           <Property Name="Code_Ingredient" Type="int" Nullable="false" />
           <Property Name="Count_IngredientsDishes" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="NationalCuisine">
+          <Key>
+            <PropertyRef Name="Code_NationalCuisine" />
+          </Key>
+          <Property Name="Code_NationalCuisine" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_NationalCuisine" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Code_User" />
           </Key>
           <Property Name="Code_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Telephone_User" Type="nvarchar" MaxLength="13" Nullable="false" />
-          <Property Name="Password_User" Type="int" Nullable="false" />
+          <Property Name="Password_User" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="FK__Ingredien__Code___3B75D760">
           <End Role="Dishes" Type="Self.Dishes" Multiplicity="1" />
@@ -65,10 +81,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dishes_NationalCuisine">
+          <End Role="NationalCuisine" Type="Self.NationalCuisine" Multiplicity="0..1" />
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NationalCuisine">
+              <PropertyRef Name="Code_NationalCuisine" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Code_NationalCuisine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище FoodModelContainer">
           <EntitySet Name="Dishes" EntityType="Self.Dishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishTypes" EntityType="Self.DishTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IngredientsDishes" EntityType="Self.IngredientsDishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NationalCuisine" EntityType="Self.NationalCuisine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Ingredien__Code___3B75D760" Association="Self.FK__Ingredien__Code___3B75D760">
             <End Role="Dishes" EntitySet="Dishes" />
@@ -78,6 +108,10 @@
             <End Role="Ingredients" EntitySet="Ingredients" />
             <End Role="IngredientsDishes" EntitySet="IngredientsDishes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Dishes_NationalCuisine" Association="Self.FK_Dishes_NationalCuisine">
+            <End Role="NationalCuisine" EntitySet="NationalCuisine" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -85,12 +119,18 @@
       <Schema Namespace="FoodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FoodEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Dishes" EntityType="FoodModel.Dishes" />
+          <EntitySet Name="DishTypes" EntityType="FoodModel.DishTypes" />
           <EntitySet Name="Ingredients" EntityType="FoodModel.Ingredients" />
           <EntitySet Name="IngredientsDishes" EntityType="FoodModel.IngredientsDishes" />
+          <EntitySet Name="NationalCuisine" EntityType="FoodModel.NationalCuisine" />
           <EntitySet Name="Users" EntityType="FoodModel.Users" />
           <AssociationSet Name="FK__Ingredien__Code___3B75D760" Association="FoodModel.FK__Ingredien__Code___3B75D760">
             <End Role="Dishes" EntitySet="Dishes" />
             <End Role="IngredientsDishes" EntitySet="IngredientsDishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_NationalCuisine" Association="FoodModel.FK_Dishes_NationalCuisine">
+            <End Role="NationalCuisine" EntitySet="NationalCuisine" />
+            <End Role="Dishes" EntitySet="Dishes" />
           </AssociationSet>
           <AssociationSet Name="FK__Ingredien__Code___3C69FB99" Association="FoodModel.FK__Ingredien__Code___3C69FB99">
             <End Role="Ingredients" EntitySet="Ingredients" />
@@ -108,7 +148,17 @@
           <Property Name="Recipe_Dish" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Portion_Dish" Type="Int32" Nullable="false" />
           <Property Name="Image_Dish" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Code_NationalCuisine" Type="Int32" />
+          <Property Name="Code_DishType" Type="Int32" />
           <NavigationProperty Name="IngredientsDishes" Relationship="FoodModel.FK__Ingredien__Code___3B75D760" FromRole="Dishes" ToRole="IngredientsDishes" />
+          <NavigationProperty Name="NationalCuisine" Relationship="FoodModel.FK_Dishes_NationalCuisine" FromRole="Dishes" ToRole="NationalCuisine" />
+        </EntityType>
+        <EntityType Name="DishTypes">
+          <Key>
+            <PropertyRef Name="Code_DishType" />
+          </Key>
+          <Property Name="Code_DishType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_DishType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -129,13 +179,21 @@
           <NavigationProperty Name="Dishes" Relationship="FoodModel.FK__Ingredien__Code___3B75D760" FromRole="IngredientsDishes" ToRole="Dishes" />
           <NavigationProperty Name="Ingredients" Relationship="FoodModel.FK__Ingredien__Code___3C69FB99" FromRole="IngredientsDishes" ToRole="Ingredients" />
         </EntityType>
+        <EntityType Name="NationalCuisine">
+          <Key>
+            <PropertyRef Name="Code_NationalCuisine" />
+          </Key>
+          <Property Name="Code_NationalCuisine" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_NationalCuisine" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dishes" Relationship="FoodModel.FK_Dishes_NationalCuisine" FromRole="NationalCuisine" ToRole="Dishes" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Code_User" />
           </Key>
           <Property Name="Code_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Telephone_User" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="Password_User" Type="Int32" Nullable="false" />
+          <Property Name="Password_User" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Ingredien__Code___3B75D760">
           <End Type="FoodModel.Dishes" Role="Dishes" Multiplicity="1" />
@@ -146,6 +204,18 @@
             </Principal>
             <Dependent Role="IngredientsDishes">
               <PropertyRef Name="Code_Dish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_NationalCuisine">
+          <End Type="FoodModel.NationalCuisine" Role="NationalCuisine" Multiplicity="0..1" />
+          <End Type="FoodModel.Dishes" Role="Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NationalCuisine">
+              <PropertyRef Name="Code_NationalCuisine" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Code_NationalCuisine" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -161,7 +231,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -170,6 +240,8 @@
           <EntitySetMapping Name="Dishes">
             <EntityTypeMapping TypeName="FoodModel.Dishes">
               <MappingFragment StoreEntitySet="Dishes">
+                <ScalarProperty Name="Code_DishType" ColumnName="Code_DishType" />
+                <ScalarProperty Name="Code_NationalCuisine" ColumnName="Code_NationalCuisine" />
                 <ScalarProperty Name="Image_Dish" ColumnName="Image_Dish" />
                 <ScalarProperty Name="Portion_Dish" ColumnName="Portion_Dish" />
                 <ScalarProperty Name="Recipe_Dish" ColumnName="Recipe_Dish" />
@@ -177,6 +249,14 @@
                 <ScalarProperty Name="Description_Dish" ColumnName="Description_Dish" />
                 <ScalarProperty Name="Name_Dish" ColumnName="Name_Dish" />
                 <ScalarProperty Name="Code_Dish" ColumnName="Code_Dish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DishTypes">
+            <EntityTypeMapping TypeName="FoodModel.DishTypes">
+              <MappingFragment StoreEntitySet="DishTypes">
+                <ScalarProperty Name="Name_DishType" ColumnName="Name_DishType" />
+                <ScalarProperty Name="Code_DishType" ColumnName="Code_DishType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -195,6 +275,14 @@
                 <ScalarProperty Name="Code_Ingredient" ColumnName="Code_Ingredient" />
                 <ScalarProperty Name="Code_Dish" ColumnName="Code_Dish" />
                 <ScalarProperty Name="Code_IngredientsDishes" ColumnName="Code_IngredientsDishes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NationalCuisine">
+            <EntityTypeMapping TypeName="FoodModel.NationalCuisine">
+              <MappingFragment StoreEntitySet="NationalCuisine">
+                <ScalarProperty Name="Name_NationalCuisine" ColumnName="Name_NationalCuisine" />
+                <ScalarProperty Name="Code_NationalCuisine" ColumnName="Code_NationalCuisine" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

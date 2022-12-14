@@ -16,6 +16,6 @@ namespace mobileFoodAPI.Models
 
         public int Code_User { get; set; }
         public string Telephone_User { get; set; }
-        public int Password_User { get; set; }
+        public string Password_User { get; set; }
     }
 }

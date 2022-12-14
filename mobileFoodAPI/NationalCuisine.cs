@@ -12,26 +12,18 @@ namespace mobileFoodAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Dishes
+    public partial class NationalCuisine
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Dishes()
+        public NationalCuisine()
         {
-            this.IngredientsDishes = new HashSet<IngredientsDishes>();
+            this.Dishes = new HashSet<Dishes>();
         }
     
-        public int Code_Dish { get; set; }
-        public string Name_Dish { get; set; }
-        public string Description_Dish { get; set; }
-        public string Cooking_Time_Dish { get; set; }
-        public string Recipe_Dish { get; set; }
-        public int Portion_Dish { get; set; }
-        public byte[] Image_Dish { get; set; }
-        public Nullable<int> Code_NationalCuisine { get; set; }
-        public Nullable<int> Code_DishType { get; set; }
+        public int Code_NationalCuisine { get; set; }
+        public string Name_NationalCuisine { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IngredientsDishes> IngredientsDishes { get; set; }
-        public virtual NationalCuisine NationalCuisine { get; set; }
+        public virtual ICollection<Dishes> Dishes { get; set; }
     }
 }

@@ -4,12 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5d814830bc804232b589d79811cf1082" Name="Diagram1">
-        <EntityTypeShape EntityType="FoodModel.Dishes" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="FoodModel.Ingredients" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="FoodModel.IngredientsDishes" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="FoodModel.Users" Width="1.5" PointX="2.75" PointY="4.75" />
+      <Diagram DiagramId="5d814830bc804232b589d79811cf1082" Name="Diagram1" ZoomLevel="95">
+        <EntityTypeShape EntityType="FoodModel.Dishes" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="FoodModel.DishTypes" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FoodModel.Ingredients" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="FoodModel.IngredientsDishes" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="FoodModel.NationalCuisine" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="FoodModel.Users" Width="1.5" PointX="7.75" PointY="0.75" />
         <AssociationConnector Association="FoodModel.FK__Ingredien__Code___3B75D760" />
+        <AssociationConnector Association="FoodModel.FK_Dishes_NationalCuisine" />
         <AssociationConnector Association="FoodModel.FK__Ingredien__Code___3C69FB99" />
       </Diagram>
     </edmx:Diagrams>

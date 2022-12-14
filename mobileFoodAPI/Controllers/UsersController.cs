@@ -51,7 +51,7 @@ namespace mobileFoodAPI.Controllers
         }
 
         [ResponseType(typeof(Users))]
-        public IHttpActionResult GetUsers(string telephoneUser, int passwordUser) // Проверка правильности введенных данных для существующего пользователя
+        public IHttpActionResult GetUsers(string telephoneUser, string passwordUser) // Проверка правильности введенных данных для существующего пользователя
         {
             Users users = db.Users.FirstOrDefault(x => x.Telephone_User == telephoneUser);
             

@@ -164,6 +164,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DishesController.cs" />
+    <Compile Include="Controllers\DishTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientsDishesController.cs" />
     <Compile Include="Controllers\NationalCuisinesController.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\CuisineModel.cs" />
     <Compile Include="Models\DishesModel.cs" />
     <Compile Include="Models\IngredientsDishesModel.cs" />
+    <Compile Include="Models\TypeDishesModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="NationalCuisine.cs">
       <DependentUpon>FoodBase.tt</DependentUpon>

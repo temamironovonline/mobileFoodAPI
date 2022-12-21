@@ -23,16 +23,18 @@ namespace mobileFoodAPI.Controllers
         }
 
         // GET: api/Dishes/5
-        [ResponseType(typeof(Dishes))]
+        [ResponseType(typeof(DishesModel))]
         public IHttpActionResult GetDishes(int id)
         {
-            Dishes dishes = db.Dishes.Find(id);
-            if (dishes == null)
+            List<DishesModel> dishes = db.Dishes.ToList().ConvertAll(x => new DishesModel(x));
+
+            DishesModel dish = dishes.FirstOrDefault(x => x.Code_Dish == id);
+            if (dish == null)
             {
                 return NotFound();
             }
 
-            return Ok(dishes);
+            return Ok(dish);
         }
 
         // PUT: api/Dishes/5

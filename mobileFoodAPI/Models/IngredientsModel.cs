@@ -10,11 +10,11 @@ namespace mobileFoodAPI.Models
 
         public IngredientsModel(Ingredients ingredients)
         {
-            Code_Ingredient = ingredients.Code_Ingregient;
+            Code_Ingregient = ingredients.Code_Ingregient;
             Name_Ingredient = ingredients.Name_Ingredient;
         }
 
-        public int Code_Ingredient { get; set; }
+        public int Code_Ingregient { get; set; }
         public string Name_Ingredient { get; set; }
 
 
